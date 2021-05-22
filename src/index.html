@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>CPU Monitor</title>
+  <link rel="stylesheet" href="index.css">
+  <script>
+    const electron = require('electron');
+    const ipcRenderer = electron.ipcRenderer;
+
+    ipcRenderer.on('cpu', (event, data) => {
+      console.log('cpu %: ', data);
+    })
+    ipcRenderer.on('mem', (event, data) => {
+      console.log('mem %: ', data);
+    })
+    ipcRenderer.on('totalMem', (event, data) => {
+      console.log('totalMem: ', data);
+    })
+  </script>
+</head>
+
+<body>
+  <h1>Hello World ❤</h1>
+</body>
+
+</html>
