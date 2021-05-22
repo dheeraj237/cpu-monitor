@@ -10,8 +10,9 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
+    width: 1000,
     height: 600,
+    icon: __dirname + '/assets/cpu-monitor.ico',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -25,14 +26,13 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  os.cpuUsage((v) => {
-    console.log('CPU Usage (%): ', v*100);
-    mainWindow.webContents.send('cpu', v*100);
-    console.log('Mem Usage (%): ', os.freememPercentage()*100);
-    mainWindow.webContents.send('mem', os.freememPercentage()*100);
-    console.log('Total Mem (GB): ', os.totalmem()/1024);
-    mainWindow.webContents.send('totalMem',os.totalmem()/1024);
-  })
+  setInterval(() => {
+    os.cpuUsage((v) => {
+      mainWindow.webContents.send('cpu', v*100);
+      mainWindow.webContents.send('mem', os.freememPercentage()*100);
+      mainWindow.webContents.send('totalMem',os.totalmem()/1024);
+    })
+  }, 500);
 };
 
 // This method will be called when Electron has finished

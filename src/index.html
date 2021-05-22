@@ -10,19 +10,21 @@
     const ipcRenderer = electron.ipcRenderer;
 
     ipcRenderer.on('cpu', (event, data) => {
-      console.log('cpu %: ', data);
+      document.getElementById('cpu').innerHTML = data.toFixed(2);
     })
     ipcRenderer.on('mem', (event, data) => {
-      console.log('mem %: ', data);
+      document.getElementById('mem').innerHTML = data.toFixed(2);
     })
     ipcRenderer.on('totalMem', (event, data) => {
-      console.log('totalMem: ', data);
+      document.getElementById('totalMem').innerHTML = data.toFixed(2);
     })
   </script>
 </head>
 
 <body>
-  <h1>Hello World ❤</h1>
+  <div class="box"><span class="label">CPU Usage (%)</span><span id="cpu">-</span></div>
+  <div class="box"><span class="label">Free Memory (%)</span><span id="mem">-</span></div>
+  <div class="box"><span class="label">Total Mem (GB)</span><span id="totalMem">-</span></div>
 </body>
 
 </html>
